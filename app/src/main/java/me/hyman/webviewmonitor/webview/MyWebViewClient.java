@@ -11,6 +11,7 @@ public class MyWebViewClient extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
 
+        //TODO collector.js文件的地址，收集的功能主要在这里面实现
         String injectJs = "";
 
         if(!injectJs.equals("")) {
