@@ -12,7 +12,7 @@ public class MyWebViewClient extends WebViewClient {
         super.onPageFinished(view, url);
 
         //TODO collector.js文件的地址，收集的功能主要在这里面实现
-        String injectJs = "";
+        String injectJs = "http://your_url/collector.js";
 
         if(!injectJs.equals("")) {
             String msg = "javascript:" +

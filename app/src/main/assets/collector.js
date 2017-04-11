@@ -21,7 +21,7 @@
                     domain: hostname,
                     uri: pathname,
                     navigationTiming: performanceTiming.getNavigationTiming(),
-                    resourceTiming: performanceTiming.getResourceTiming(),
+                    resourceTiming: performanceTiming.getResourceTiming()
                 }
             };
             sendResourceTiming(navigationTiming);
@@ -60,6 +60,7 @@
     }
 
     function sendResourceTiming(e) {
+        //console.log(JSON.stringify(e));
         myObj.sendResource(JSON.stringify(e))
     };
 
@@ -77,6 +78,7 @@
                 }
             };
 
+            //console.log(JSON.stringify(errorInfo));
             myObj.sendError(JSON.stringify(errorInfo))
         }
     };
@@ -117,13 +119,13 @@
                 domComplete: time.domComplete,
                 loadEventStart: time.loadEventStart,
                 loadEventEnd: time.loadEventEnd,
-                pageTime: pageTime || (new Date).getTime()
+                pageTime: pageTime
             }
         }
         function resourceTiming() {
             if (!e.performance || !e.performance.getEntriesByType) return [];
             for (var time = e.performance.getEntriesByType("resource"), resArr = [], i = 0; i < time.length; i++) {
-                var i = time[i].secureConnectionStart ? time[i].secureConnectionStart: time[i].connectEnd - time[i].secureConnectionStart,
+                var t = time[i].secureConnectionStart ? time[i].secureConnectionStart: time[i].connectEnd - time[i].secureConnectionStart,
                     res = {
                         connectEnd: time[i].connectEnd,
                         connectStart: time[i].connectStart,
@@ -139,7 +141,7 @@
                         requestStart: time[i].requestStart,
                         responseEnd: time[i].responseEnd,
                         responseStart: time[i].responseStart,
-                        secureConnectionStart: i,
+                        secureConnectionStart: t,
                         startTime: time[i].startTime
                     };
                 resArr.push(res);
